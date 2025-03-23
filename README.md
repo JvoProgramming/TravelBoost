@@ -2,7 +2,7 @@
 
 TravelBoost is a comprehensive travel planning platform that combines a Chrome extension and web application to help users find the best travel deals and plan their trips efficiently.
 
-![TravelBoost Logo](client/webapp/src/assets/icon512.png)
+![TravelBoost Logo](/client/assets/icon512.png)
 
 ## Overview
 
