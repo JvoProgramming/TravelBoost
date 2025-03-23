@@ -59,7 +59,7 @@ travelboost/
 ├── client/
 │   ├── webapp/         # React web application
 │   └── extension/      # Chrome extension
-└── server/            # Backend services (separate repo)
+└── server/            # Backend services
 ```
 
 ## Features
