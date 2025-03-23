@@ -31,10 +31,9 @@ client/
 ```javascript
 // Example of data sent to backend
 {
-  url: "https://kayak.com/flights/...",
-  timestamp: "2024-03-14T12:00:00Z",
-  title: "Flight Search Results",
-  hostname: "kayak.com"
+  title: document.title,
+  locationData: window.location,
+  timestamp: new Date().toISOString(),
 }
 ```
 

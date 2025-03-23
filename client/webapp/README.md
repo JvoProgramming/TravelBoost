@@ -1,3 +1,72 @@
+# TravelBoost Web Application
+
+A modern web application for travel planning, built with React, TypeScript, and Vite.
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+1. Clone the repository
+```bash
+git clone https://github.com/your-org/travelboost.git
+cd client/webapp
+```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn
+```
+
+### Development
+Run the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+The app will be available at `http://localhost:5173`
+
+### Building for Production
+```bash
+npm run build
+# or
+yarn build
+```
+
+The built files will be in the `dist` directory.
+
+### Linting
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+## Project Structure
+- `src/components/` - Reusable UI components
+- `src/pages/` - Page components
+- `src/assets/` - Static assets
+- `src/App.tsx` - Root component
+- `src/App.css` - Global styles
+
+## Features
+- Modern, responsive design
+- Smooth animations and transitions
+- Form handling with validation
+- Device detection
+- API integration ready
+
+## Development Notes
+- Built with Vite + React + TypeScript
+- Uses CSS modules for styling
+- Follows modern React patterns
+- Emphasizes clean, maintainable code
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
