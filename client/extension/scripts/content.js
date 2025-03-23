@@ -7,7 +7,7 @@ async function sendToBackend() {
       type: 'SCANNING_STARTED'
     });
 
-    console.log('Sending page data for:', window.location.hostname);
+    console.log('Sending page data for:', window.location);
     
     // send current page data to backend
     const response = await fetch('https://api.travelboost.com/v1/scan', {
@@ -16,11 +16,9 @@ async function sendToBackend() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        url: window.location.href,
-        timestamp: new Date().toISOString(),
         title: document.title,
-        hostname: window.location.hostname,
-        content: document.documentElement.innerHTML
+        locationData: window.location,
+        timestamp: new Date().toISOString(),
       })
     });
 
