@@ -98,7 +98,7 @@ npm run dev
 4. Refresh to see changes
 
 ## Contributing
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please open a PR and we will review it.
 
 ## Documentation
 - [Web Application Documentation](client/webapp/DOCUMENTATION.md)
