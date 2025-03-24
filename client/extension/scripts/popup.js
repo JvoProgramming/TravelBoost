@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
         <p>${deal.location}</p>
         <div class="price-container">
           <p class="price">$${deal.pricePerNight}/night</p>
-          <p class="original-price">$${deal.originalPrice}/night</p>
+          <p class="original-price">$${deal.originalPrice}</p>
           <p class="savings">Save $${(parseFloat(deal.originalPrice) - parseFloat(deal.pricePerNight)).toFixed(0)}/night</p>
         </div>
         <div class="dates">
-          <p>Check-in: ${new Date(deal.checkIn).toLocaleDateString()}</p>
-          <p>Check-out: ${new Date(deal.checkOut).toLocaleDateString()}</p>
+          <p>Check-in: ${deal.checkIn}</p>
+          <p>Check-out: ${deal.checkOut}</p>
         </div>
       </a>
     `,
@@ -56,14 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
   function setLoadingState(isLoading) {
     if (isLoading) {
       statusIcon.style.display = 'block';
-      resultElement.textContent = "Scanning for better deals...";
+      resultElement.textContent = "Scanning for deals...";
     } else {
       statusIcon.style.display = 'none';
     }
   }
 
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === 'DEALS_FOUND') {
+    if (message.type === 'SCANNING_STARTED') {
+      dealsContainer.innerHTML = '';
+      resultElement.textContent = "Scanning for deals...";
+      setLoadingState(true);
+    } else if (message.type === 'DEALS_FOUND') {
       setLoadingState(false);
       displayDeals(message.deals, message.category);
     }
@@ -80,16 +84,50 @@ document.addEventListener('DOMContentLoaded', function() {
     dealsContainer.innerHTML = deals.map(deal => dealTemplates[category](deal)).join('');
   }
 
-  // hide pulse initially
-  setLoadingState(false);
-  resultElement.textContent = "Start planning your trip! Search for flights, hotels, or cars and we'll find you the best deals.";
+  // Check if current site is a supported travel site
+  function isSupportedSite(url) {
+    const supportedDomains = [
+      'expedia.com',
+      'kayak.com',
+      'booking.com',
+      'hotels.com',
+      'google.com/flights',
+      'enterprise.com',
+      'hertz.com'
+    ];
+    return supportedDomains.some(domain => url.includes(domain));
+  }
 
-  
-  
-  
-  
-  
-  
+  // Get the current tab and check storage first
+  chrome.tabs.query({ active: true, currentWindow: true }, async function(tabs) {
+    const currentTab = tabs[0];
+    
+    if (isSupportedSite(currentTab.url)) {
+      // Check storage for recent deals first
+      chrome.storage.local.get(['lastDeals'], function(result) {
+        if (result.lastDeals) {
+          const storedDeals = result.lastDeals;
+          // Check if deals are fresh (less than 5 minutes old)
+          const isFresh = new Date() - new Date(storedDeals.timestamp) < 5 * 60 * 1000;
+          
+          if (isFresh) {
+            // Use stored deals if fresh
+            setLoadingState(false);
+            displayDeals(storedDeals.deals, storedDeals.category);
+            return;
+          }
+        }
+        
+        // Only scan if no fresh deals found
+        setLoadingState(true);
+        chrome.tabs.sendMessage(currentTab.id, { action: 'scanForDeals' });
+      });
+    } else {
+      // Not on supported site
+      resultElement.textContent = "Start planning your trip! Search for flights, hotels, or cars and we'll find you the best deals.";
+    }
+  });
+
   // mock data for testing different types of deals
   /*const mockDeals = {
     flight: [

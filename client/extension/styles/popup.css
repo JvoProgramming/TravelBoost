@@ -134,29 +134,34 @@ h1 {
 .price-container {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 12px 0;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .price {
-  color: #0f172a;
+  font-size: 16px;
   font-weight: 600;
-  font-size: 20px;
+  color: #2E7D32;
+  margin: 0;
 }
 
 .original-price {
-  color: #94a3b8;
-  text-decoration: line-through;
   font-size: 14px;
+  color: #666;
+  text-decoration: line-through;
+  margin: 0;
 }
 
 .savings {
-  color: #10b981;
   font-size: 14px;
-  font-weight: 500;
-  background: #f0fdf4;
-  padding: 4px 8px;
-  border-radius: 6px;
+  color: #2E7D32;
+  background: #E8F5E9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 0;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .dates {
@@ -187,4 +192,17 @@ button:hover {
 #result {
   color: #666;
   line-height: 1.4;
+}
+
+.deal-item {
+  display: block;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
 } 

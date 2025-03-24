@@ -5,8 +5,13 @@
   "description": "A Chrome extension for travel enthusiasts looking for the best deals",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "tabs"
   ],
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
